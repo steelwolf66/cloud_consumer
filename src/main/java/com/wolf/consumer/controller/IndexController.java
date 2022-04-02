@@ -1,8 +1,16 @@
 package com.wolf.consumer.controller;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.wolf.consumer.entity.Info;
 import com.wolf.consumer.feign.ProviderService;
+import com.wolf.consumer.feign.UserService;
 import com.wolf.consumer.service.HelloFeignService;
+import com.ztax.common.constants.AuthConstants;
+import com.ztax.common.result.Result;
+import com.ztax.common.utils.ApplicationContextProvider;
+import com.ztax.common.utils.HttpUtils;
+import com.ztax.common.utils.JwtUtils;
 import com.ztax.common.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +32,9 @@ public class IndexController {
     @Autowired
     private ProviderService providerService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping(value = "/hello")
     public String hello() {
         HttpServletRequest httpServletRequest = WebUtils.getHttpServletRequest();
@@ -42,5 +53,13 @@ public class IndexController {
     public List<Info> getListInfo(@RequestBody Info info) {
         List<Info> resultList = providerService.getInfoList(info);
         return resultList;
+    }
+
+    @GetMapping(value = "/users/me")
+    public Result currentUserInfo() {
+        String jwtPayload = HttpUtils.getResponse().getHeader(AuthConstants.JWT_PAYLOAD_KEY);
+        JSONObject jsonObject = JSONUtil.parseObj(jwtPayload);
+        logger.info("jsonpayload :{}", jsonObject);
+        return userService.currentUserInfo();
     }
 }
