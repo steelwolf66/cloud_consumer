@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(value = "ztax-iam-develop", contextId = "userService")
+@FeignClient(value = "ztax-iam", contextId = "userService")
 public interface UserService {
 
     @GetMapping(value = "/users/me")

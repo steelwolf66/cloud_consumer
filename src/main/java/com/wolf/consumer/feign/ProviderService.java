@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@FeignClient(value = "ztax-provider-develop", contextId = "providerService")
+@FeignClient(value = "ztax-provider", contextId = "providerService")
 public interface ProviderService {
 
     @PostMapping(value = "/info/list")
