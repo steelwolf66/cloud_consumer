@@ -1,4 +1,4 @@
-package com.wolf.consumer.entity;
+package com.ztax.consumer.entity;
 
 import lombok.Data;
 

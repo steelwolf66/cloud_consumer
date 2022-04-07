@@ -1,17 +1,18 @@
-package com.wolf.consumer.controller;
+package com.ztax.consumer.controller;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.wolf.consumer.entity.Info;
-import com.wolf.consumer.feign.ProviderService;
-import com.wolf.consumer.feign.UserService;
-import com.wolf.consumer.service.HelloFeignService;
+
 import com.ztax.common.constants.AuthConstants;
 import com.ztax.common.result.Result;
-import com.ztax.common.utils.ApplicationContextProvider;
 import com.ztax.common.utils.HttpUtils;
-import com.ztax.common.utils.JwtUtils;
 import com.ztax.common.utils.WebUtils;
+import com.ztax.feign.entity.Info;
+import com.ztax.feign.service.HelloFeignService;
+import com.ztax.feign.service.ProviderService;
+import com.ztax.feign.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,28 +25,27 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
+@Slf4j
 public class IndexController {
-    Logger logger = LoggerFactory.getLogger(IndexController.class);
-    @Autowired
+
     private HelloFeignService feignService;
 
-    @Autowired
     private ProviderService providerService;
 
-    @Autowired
     private UserService userService;
 
     @GetMapping(value = "/hello")
     public String hello() {
         HttpServletRequest httpServletRequest = WebUtils.getHttpServletRequest();
-        logger.info("http request:{}", httpServletRequest.toString());
-        logger.info("consumer method : hello");
+        log.info("http request:{}", httpServletRequest.toString());
+        log.info("consumer method : hello");
         return feignService.hello();
     }
 
     @GetMapping(value = "/bad")
     public String badRequest() {
-        logger.info("consumer method : badRequest");
+        log.info("consumer method : badRequest");
         return feignService.bad();
     }
 
@@ -57,9 +57,9 @@ public class IndexController {
 
     @GetMapping(value = "/users/me")
     public Result currentUserInfo() {
-        String jwtPayload = HttpUtils.getResponse().getHeader(AuthConstants.JWT_PAYLOAD_KEY);
+        String jwtPayload = HttpUtils.getRequest().getHeader(AuthConstants.JWT_PAYLOAD_KEY);
         JSONObject jsonObject = JSONUtil.parseObj(jwtPayload);
-        logger.info("jsonpayload :{}", jsonObject);
+        log.info("jsonpayload :{}", jsonObject);
         return userService.currentUserInfo();
     }
 }
