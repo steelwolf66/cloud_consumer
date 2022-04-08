@@ -1,8 +1,5 @@
 package com.ztax.consumer;
 
-import com.ztax.feign.service.HelloFeignService;
-import com.ztax.feign.service.ProviderService;
-import com.ztax.feign.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

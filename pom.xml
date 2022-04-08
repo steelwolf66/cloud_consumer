@@ -59,23 +59,7 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-<!--        &lt;!&ndash; feign &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-loadbalancer</artifactId>-->
-<!--&lt;!&ndash;            <version>3.1.0</version>&ndash;&gt;-->
-<!--        </dependency>-->
-        <!-- 本地基础包 -->
-        <dependency>
-            <groupId>com.ztax</groupId>
-            <artifactId>cloud-common</artifactId>
-            <version>0.0.3</version>
-        </dependency>
-        <!-- 本地基础包 -->
+        <!-- feign依赖包 -->
         <dependency>
             <groupId>com.ztax</groupId>
             <artifactId>cloud-feign</artifactId>
